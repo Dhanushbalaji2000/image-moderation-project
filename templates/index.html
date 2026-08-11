@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Image Moderation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Image Moderation System</h1>
+
+    <h2>Upload an Image</h2>
+
+    <form method="POST"
+          enctype="multipart/form-data">
+
+        <input
+            type="file"
+            name="image"
+            id="imageInput"
+            accept="image/*"
+            onchange="previewImage(event)"
+            required>
+
+        <br><br>
+
+        <img
+            id="preview"
+            src="#"
+            alt="Image Preview"
+            style="
+                display:none;
+                width:300px;
+                border:1px solid #ccc;
+                border-radius:10px;
+            ">
+
+        <br><br>
+
+        <button type="submit">
+            Upload Image
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+
+function previewImage(event) {
+
+    const preview =
+        document.getElementById("preview");
+
+    preview.src =
+        URL.createObjectURL(event.target.files[0]);
+
+    preview.style.display = "block";
+}
+
+</script>
+
+</body>
+
+</html>

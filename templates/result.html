@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Moderation Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Image Moderation Result</h1>
+
+    <hr>
+
+    <p>
+        <b>Image Name:</b>
+        {{ image_name }}
+    </p>
+
+    <p>
+        <b>Moderation Status:</b>
+
+        {% if status == "Approved" %}
+
+            <span class="success">
+                {{ status }}
+            </span>
+
+        {% else %}
+
+            <span class="danger">
+                {{ status }}
+            </span>
+
+        {% endif %}
+
+    </p>
+
+    <br>
+
+    <a href="/">
+        <button>
+            Upload Another Image
+        </button>
+    </a>
+
+</div>
+
+</body>
+
+</html>
