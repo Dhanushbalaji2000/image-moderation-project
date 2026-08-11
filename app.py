@@ -15,9 +15,9 @@ def home():
     if request.method == "POST":
 
         # Get the uploaded file
-        file = request.files["image"]
+        file = request.files.get("image")
 
-        if file:
+        if file and file.filename:
 
             # Create uploads folder if it doesn't exist
             os.makedirs(
@@ -31,11 +31,11 @@ def home():
                 file.filename
             )
 
-            # Save the image
+            # Save the image locally
             file.save(filepath)
 
             # Temporary moderation result
-            # Rekognition will replace this later
+            # AWS Rekognition will replace this later
             status = "Approved"
 
             # Show result page
