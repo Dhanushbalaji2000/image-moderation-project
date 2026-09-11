@@ -1,72 +1,328 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
+{% block title %}
+Image Moderation System
+{% endblock %}
 
-    <title>Image Moderation</title>
+{% block content %}
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+<section class="hero-card">
 
-</head>
+    <div class="hero-left">
 
-<body>
+        <span class="eyebrow">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            AI POWERED MODERATION
+        </span>
 
-<div class="container">
+        <h1>
+            Upload an Image<br>
+            <span>for Moderation</span>
+        </h1>
 
-    <h1>Image Moderation System</h1>
+        <p class="hero-description">
+            Our system uses Amazon Rekognition to detect
+            potentially inappropriate content and keep your
+            platform safer.
+        </p>
 
-    <h2>Upload an Image</h2>
+        <div class="features">
 
-    <form method="POST"
-          enctype="multipart/form-data">
+            <div class="feature">
+                <div class="feature-icon blue">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
 
-        <input
-            type="file"
-            name="image"
-            id="imageInput"
-            accept="image/*"
-            onchange="previewImage(event)"
-            required>
+                <div>
+                    <h4>Secure Upload</h4>
+                    <p>Images are securely stored in Amazon S3.</p>
+                </div>
+            </div>
 
-        <br><br>
+            <div class="feature">
+                <div class="feature-icon green">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
 
-        <img
-            id="preview"
-            src="#"
-            alt="Image Preview"
-            style="
-                display:none;
-                width:300px;
-                border:1px solid #ccc;
-                border-radius:10px;
-            ">
+                <div>
+                    <h4>AI Moderation</h4>
+                    <p>Powered by Amazon Rekognition.</p>
+                </div>
+            </div>
 
-        <br><br>
+            <div class="feature">
+                <div class="feature-icon purple">
+                    <i class="fa-solid fa-database"></i>
+                </div>
 
-        <button type="submit">
-            Upload Image
-        </button>
+                <div>
+                    <h4>Audit Trail</h4>
+                    <p>Results are recorded in SQL Server.</p>
+                </div>
+            </div>
 
-    </form>
+        </div>
+
+    </div>
+
+
+    <div class="upload-panel">
+
+        <form method="POST"
+              enctype="multipart/form-data"
+              id="uploadForm">
+
+            <div class="drop-zone"
+                 id="dropZone">
+
+                <div class="upload-icon">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+
+                <h3>Drag & drop your image here</h3>
+
+                <span class="or-text">or</span>
+
+                <label for="imageInput"
+                       class="choose-btn">
+
+                    <i class="fa-solid fa-upload"></i>
+                    Choose File
+
+                </label>
+
+                <input type="file"
+                       name="image"
+                       id="imageInput"
+                       accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                       required
+                       hidden>
+
+                <p class="file-help">
+                    JPG, JPEG or PNG · Maximum 10 MB
+                </p>
+
+                <p id="fileName"
+                   class="selected-file">
+                </p>
+
+                <img id="preview"
+                     class="image-preview"
+                     src="#"
+                     alt="Image preview">
+
+            </div>
+
+            <button type="submit"
+                    class="upload-btn">
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                Upload & Moderate
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<div class="security-banner">
+
+    <i class="fa-solid fa-shield-halved"></i>
+
+    <span>
+        Your images are processed securely and analyzed using
+        AWS Rekognition.
+    </span>
 
 </div>
 
+
+<section class="dashboard-grid">
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <div>
+                <span class="section-label">ACTIVITY</span>
+                <h2>Recent Uploads</h2>
+            </div>
+
+            <a href="{{ url_for('history') }}"
+               class="view-link">
+
+                View All History
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+        <div class="activity-empty">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <p>
+                View your complete moderation history
+                from the Upload History page.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <div class="card-header">
+
+            <div>
+                <span class="section-label">PROCESS</span>
+                <h2>How It Works</h2>
+            </div>
+
+            <i class="fa-solid fa-gears card-header-icon"></i>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">1</div>
+
+                <div>
+                    <h4>Upload Image</h4>
+                    <p>Select an image using the upload area.</p>
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">2</div>
+
+                <div>
+                    <h4>AI Analysis</h4>
+                    <p>Amazon Rekognition analyzes the image.</p>
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">3</div>
+
+                <div>
+                    <h4>Result Generated</h4>
+                    <p>
+                        The image becomes
+                        <span class="approved-text">Approved</span>
+                        or
+                        <span class="rejected-text">Rejected</span>.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">4</div>
+
+                <div>
+                    <h4>Stored Securely</h4>
+                    <p>Results are recorded for auditing.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 <script>
 
-function previewImage(event) {
+const imageInput = document.getElementById("imageInput");
+const dropZone = document.getElementById("dropZone");
+const preview = document.getElementById("preview");
+const fileName = document.getElementById("fileName");
 
-    const preview =
-        document.getElementById("preview");
 
-    preview.src =
-        URL.createObjectURL(event.target.files[0]);
+imageInput.addEventListener("change", function () {
 
-    preview.style.display = "block";
+    const file = this.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    showFile(file);
+
+});
+
+
+function showFile(file) {
+
+    fileName.textContent = file.name;
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+
+        preview.src = event.target.result;
+
+        preview.style.display = "block";
+
+    };
+
+    reader.readAsDataURL(file);
 }
+
+
+dropZone.addEventListener("dragover", function (event) {
+
+    event.preventDefault();
+
+    dropZone.classList.add("dragging");
+
+});
+
+
+dropZone.addEventListener("dragleave", function () {
+
+    dropZone.classList.remove("dragging");
+
+});
+
+
+dropZone.addEventListener("drop", function (event) {
+
+    event.preventDefault();
+
+    dropZone.classList.remove("dragging");
+
+    const file = event.dataTransfer.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    imageInput.files = event.dataTransfer.files;
+
+    showFile(file);
+
+});
 
 </script>
 
-</body>
-
-</html>
+{% endblock %}

@@ -1,57 +1,110 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
+{% block title %}
+Moderation Result
+{% endblock %}
 
-    <title>Moderation Result</title>
+{% block content %}
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+<div class="result-page">
 
-</head>
+    <div class="dashboard-card">
 
-<body>
+        <div class="result-header">
 
-<div class="container">
+            {% if status == "Rejected" %}
 
-    <h1>Image Moderation Result</h1>
+                <div class="result-icon rejected">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
 
-    <hr>
+                <div>
+                    <span class="section-label">MODERATION RESULT</span>
+                    <h1>Image Rejected</h1>
+                </div>
 
-    <p>
-        <b>Image Name:</b>
-        {{ image_name }}
-    </p>
+            {% else %}
 
-    <p>
-        <b>Moderation Status:</b>
+                <div class="result-icon approved">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
 
-        {% if status == "Approved" %}
+                <div>
+                    <span class="section-label">MODERATION RESULT</span>
+                    <h1>Image Approved</h1>
+                </div>
 
-            <span class="success">
-                {{ status }}
-            </span>
+            {% endif %}
 
-        {% else %}
+        </div>
 
-            <span class="danger">
-                {{ status }}
-            </span>
 
-        {% endif %}
+        <div class="result-grid">
 
-    </p>
+            <div class="result-image-card">
 
-    <br>
+                <img
+                    src="{{ s3_url }}"
+                    alt="Uploaded Image">
 
-    <a href="/">
-        <button>
-            Upload Another Image
-        </button>
-    </a>
+            </div>
+
+
+            <div class="result-details">
+
+                <div class="detail-item">
+                    <span>Image Name</span>
+                    <strong>{{ image_name }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Moderation Status</span>
+
+                    {% if status == "Rejected" %}
+
+                        <span class="status-badge rejected">
+                            <i class="fa-solid fa-xmark"></i>
+                            Rejected
+                        </span>
+
+                    {% else %}
+
+                        <span class="status-badge approved">
+                            <i class="fa-solid fa-check"></i>
+                            Approved
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="result-actions">
+
+                    <a href="{{ url_for('home') }}"
+                       class="choose-btn">
+
+                        <i class="fa-solid fa-upload"></i>
+                        Upload Another
+
+                    </a>
+
+                    <a href="{{ url_for('history') }}"
+                       class="secondary-btn">
+
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        View History
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-</body>
-
-</html>
+{% endblock %}

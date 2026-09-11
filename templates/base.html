@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Image Moderation System{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+        <a href="{{ url_for('home') }}" class="brand">
+            <span class="brand-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </span>
+
+            <span>Image Moderation System</span>
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="{{ url_for('home') }}"
+               class="{% if request.endpoint == 'home' %}active{% endif %}">
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+
+            <a href="{{ url_for('history') }}"
+               class="{% if request.endpoint == 'history' %}active{% endif %}">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                Upload History
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-circle-info"></i>
+                About
+            </a>
+
+        </nav>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            System Online
+        </div>
+
+    </div>
+
+</header>
+
+<main class="main-container">
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for message in messages %}
+                    <div class="flash-message">
+                        <i class="fa-solid fa-circle-info"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+</main>
+
+<footer class="footer">
+
+    <div>
+        © 2026 Image Moderation System
+    </div>
+
+    <div>
+        Built with Flask, AWS & SQL Server
+    </div>
+
+    <div>
+        <i class="fa-solid fa-shield-halved"></i>
+        Secure Moderation
+    </div>
+
+</footer>
+
+</body>
+</html>

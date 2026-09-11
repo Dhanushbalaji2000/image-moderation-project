@@ -1,0 +1,168 @@
+cd /home/ec2-user/image-moderation-project
+
+cat > templates/history.html <<'EOF'
+{% extends "base.html" %}
+
+{% block title %}
+Upload History
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-card">
+
+    <div class="card-header">
+
+        <div>
+            <span class="section-label">
+                AUDIT TRAIL
+            </span>
+
+            <h2>
+                Upload History
+            </h2>
+
+            <p class="section-description">
+                Review previously uploaded images and their moderation results.
+            </p>
+        </div>
+
+        <i class="fa-solid fa-database card-header-icon"></i>
+
+    </div>
+
+
+    <div class="history-table">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>File Name</th>
+                    <th>Status</th>
+                    <th>Uploaded At</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                {% for row in uploads %}
+
+                <tr>
+
+                    <!-- Image Preview -->
+                    <td>
+                        <div class="history-image-wrapper">
+
+                            <img
+                                src="{{ row[3] }}"
+                                class="history-thumbnail"
+                                alt="{{ row[1] }}"
+                                loading="lazy">
+
+                        </div>
+                    </td>
+
+
+                    <!-- Image Name -->
+                    <td>
+                        <div class="history-file-name">
+                            <i class="fa-regular fa-image"></i>
+                            <span>{{ row[1] }}</span>
+                        </div>
+                    </td>
+
+
+                    <!-- Moderation Status -->
+                    <td>
+
+                        {% if row[2] == "Approved" %}
+
+                            <span class="status-badge approved">
+                                <i class="fa-solid fa-check"></i>
+                                Approved
+                            </span>
+
+                        {% elif row[2] == "Rejected" %}
+
+                            <span class="status-badge rejected">
+                                <i class="fa-solid fa-xmark"></i>
+                                Rejected
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge">
+                                {{ row[2] }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- Upload Date -->
+                    <td>
+
+                        {% if row[4] %}
+
+                            <div class="upload-date">
+                                <i class="fa-regular fa-clock"></i>
+                                {{ row[4] }}
+                            </div>
+
+                        {% else %}
+
+                            <span>-</span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="4">
+
+                        <div class="empty-history">
+
+                            <i class="fa-solid fa-box-open"></i>
+
+                            <h3>No Upload History</h3>
+
+                            <p>
+                                Upload an image to begin building your moderation history.
+                            </p>
+
+                            <a href="{{ url_for('home') }}"
+                               class="choose-btn">
+
+                                <i class="fa-solid fa-upload"></i>
+                                Upload Image
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
+EOF
