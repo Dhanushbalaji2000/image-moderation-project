@@ -41,7 +41,7 @@ Web interface for selecting an image to upload and moderate.
 
 The interface explains image upload, analysis, moderation results, and audit storage.
 
-![How It Works](docs/images/02-how-it-works.png)
+![How It Works](https://github.com/Dhanushbalaji2000/image-moderation-project/blob/6a8ac3482522b396e5cebe998415cbf86751363b/02-how-it-works.png)
 
 ### Image Selected
 
