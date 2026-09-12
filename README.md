@@ -59,7 +59,7 @@ The application displays an Approved moderation status.
 
 The application displays a Rejected moderation status.
 
-![Rejected Result](docs/images/05-rejected-result.png)
+![Rejected Result](https://github.com/Dhanushbalaji2000/image-moderation-project/blob/6330c8278629ab27a7c9c8629ba493ff8b65c8c8/05-rejected-result.png)
 
 ### Upload History
 
