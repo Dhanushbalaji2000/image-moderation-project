@@ -35,7 +35,7 @@ The objective of this project was to build a secure and scalable AWS application
 
 Web interface for selecting an image to upload and moderate.
 
-![Home — Upload Interface](docs/images/01-home.png)
+![Home — Upload Interface](https://github.com/Dhanushbalaji2000/image-moderation-project/blob/d8513510303c316dac7f46578913f78545eebca9/01-home.png)
 
 ### How It Works
 
