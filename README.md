@@ -29,5 +29,44 @@ The objective of this project was to build a secure and scalable AWS application
 ![image alt](https://github.com/Dhanushbalaji2000/image-moderation-project/blob/1d88f6bf328df9b8f5451cb91ce24e32db9da0b2/ChatGPT%20Image%20Sep%2012%2C%202026%2C%2010_06_21%20AM.png)
 
 
+## Application Screenshots
+
+### Home — Upload Interface
+
+Web interface for selecting an image to upload and moderate.
+
+![Home — Upload Interface](docs/images/01-home.png)
+
+### How It Works
+
+The interface explains image upload, analysis, moderation results, and audit storage.
+
+![How It Works](docs/images/02-how-it-works.png)
+
+### Image Selected
+
+A selected image is previewed before clicking Upload & Moderate.
+
+![Image Selected](docs/images/03-image-selected.png)
+
+### Approved Result
+
+The application displays an Approved moderation status.
+
+![Approved Result](docs/images/04-approved-result.png)
+
+### Rejected Result
+
+The application displays a Rejected moderation status.
+
+![Rejected Result](docs/images/05-rejected-result.png)
+
+### Upload History
+
+The audit page lists filenames, moderation statuses, and upload timestamps.
+
+![Upload History](docs/images/06-upload-history.png)
+
+
 
 
