@@ -53,7 +53,7 @@ A selected image is previewed before clicking Upload & Moderate.
 
 The application displays an Approved moderation status.
 
-![Approved Result](docs/images/04-approved-result.png)
+![Approved Result](https://github.com/Dhanushbalaji2000/image-moderation-project/blob/706d001e6b16678fcfe41c680c780ff1a5955f63/04-approved-result.png)
 
 ### Rejected Result
 
