@@ -69,4 +69,180 @@ The audit page lists filenames, moderation statuses, and upload timestamps.
 
 
 
+# Application Request Flow
+
+```text
+User
+  |
+  | HTTPS
+  v
+Amazon CloudFront
+  |
+  | AWS WAF evaluates request
+  v
+Application Load Balancer
+  |
+  v
+Target Group
+  |
+  +-------------------------+
+  |                         |
+  v                         v
+Private EC2 #1         Private EC2 #2
+  |                         |
+  |                   Auto Scaling Group
+  |
+  v
+Nginx :80
+  |
+  v
+Gunicorn :8000
+  |
+  v
+Flask Application
+  |
+  +----------------+----------------+
+  |                |                |
+  v                v                v
+Amazon S3     Rekognition       RDS SQL Server
+```
+
+# Image Processing Workflow
+
+When a user uploads an image:
+
+1. The user accesses the application through Amazon CloudFront.
+2. AWS WAF evaluates the HTTP request.
+3. CloudFront forwards the request to the Application Load Balancer.
+4. The ALB selects a healthy EC2 instance from the Target Group.
+5. Nginx receives the request on port `80`.
+6. Nginx reverse proxies the request to Gunicorn on `127.0.0.1:8000`.
+7. Gunicorn passes the request to the Flask application.
+8. Flask receives the uploaded image.
+9. Boto3 uploads the image to Amazon S3.
+10. Flask calls Amazon Rekognition `DetectModerationLabels`.
+11. Rekognition analyzes the S3 object and returns moderation labels.
+12. Flask determines whether the image is **Approved** or **Rejected**.
+13. Flask stores the result and image information in RDS SQL Server.
+14. The result is displayed to the user.
+15. The `/history` page displays previous moderation records.
+
+Benefits:
+
+- Durable object storage
+- Independent of EC2
+- Direct integration with Rekognition
+- Versioning support
+- Lifecycle management
+- Scalable storage.
+
+# Project Structure
+
+The following files are currently tracked in this GitHub repository:
+
+```text
+image-moderation-project/
+│
+├── .gitignore
+├── app.py
+├── requirements.txt
+├── test_db.py
+│
+├── static/
+│   └── style.css
+│
+└── templates/
+    ├── base.html
+    ├── history.html
+    ├── index.html
+    └── result.html
+```
+
+### Runtime files excluded from GitHub
+
+The following exist on the EC2 application server but are intentionally excluded using `.gitignore`:
+
+```text
+.env
+venv/
+uploads/
+__pycache__/
+*.pyc
+```
+
+`uploads/` contains local/test uploaded images and is not stored in GitHub.
+
+`.env` contains application configuration and is intentionally excluded to prevent credentials or sensitive configuration from being committed.
+
+---
+
+
+# Technologies Used
+
+| Category | Technology |
+|---|---|
+| Cloud Platform | AWS |
+| Operating System | Amazon Linux |
+| Programming Language | Python |
+| Framework | Flask |
+| Web Server | Nginx |
+| WSGI Server | Gunicorn |
+| AWS SDK | Boto3 |
+| Database Driver | pyodbc |
+| Compute | Amazon EC2 |
+| Load Balancer | Application Load Balancer |
+| Scaling | Auto Scaling Group |
+| Storage | Amazon S3 |
+| AI / ML Service | Amazon Rekognition |
+| Database | Amazon RDS SQL Server |
+| CDN | Amazon CloudFront |
+| Security | AWS WAF, IAM, Security Groups |
+| Networking | VPC, Public/Private Subnets, NAT Gateway |
+| Monitoring | Amazon CloudWatch / SNS |
+
+
+# Troubleshooting Commands
+
+Check Gunicorn service:
+
+```bash
+sudo systemctl status image-moderation.service
+```
+
+Application logs:
+
+```bash
+sudo journalctl -u image-moderation.service -f
+```
+
+Test Gunicorn directly:
+
+```bash
+curl -i http://127.0.0.1:8000/health
+```
+
+Test through Nginx:
+
+```bash
+curl -i http://localhost/health
+```
+
+Verify IAM identity:
+
+```bash
+aws sts get-caller-identity
+```
+
+Test S3 access:
+
+```bash
+aws s3 ls s3://image-moderation-project/
+```
+
+---
+
+
+
+
+
 
