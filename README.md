@@ -47,7 +47,7 @@ The interface explains image upload, analysis, moderation results, and audit sto
 
 A selected image is previewed before clicking Upload & Moderate.
 
-![Image Selected](docs/images/03-image-selected.png)
+![Image Selected](https://github.com/Dhanushbalaji2000/image-moderation-project/blob/5e9250dea582340d2d096ab7dbc166c207c22506/03-image-selected.png)
 
 ### Approved Result
 
