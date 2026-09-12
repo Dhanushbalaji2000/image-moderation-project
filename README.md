@@ -24,3 +24,10 @@ The objective of this project was to build a secure and scalable AWS application
 - S3 Versioning and Lifecycle policies
 - Monitoring and troubleshooting
 
+## Architecture:
+
+![image alt](https://github.com/Dhanushbalaji2000/image-moderation-project/blob/1d88f6bf328df9b8f5451cb91ce24e32db9da0b2/ChatGPT%20Image%20Sep%2012%2C%202026%2C%2010_06_21%20AM.png)
+
+
+
+
