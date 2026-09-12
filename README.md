@@ -65,7 +65,7 @@ The application displays a Rejected moderation status.
 
 The audit page lists filenames, moderation statuses, and upload timestamps.
 
-![Upload History](docs/images/06-upload-history.png)
+![Upload History](https://github.com/Dhanushbalaji2000/image-moderation-project/blob/19d67e8e5e9a1e951ff9d053516e45878fcb751f/06-upload-history.png)
 
 
 
